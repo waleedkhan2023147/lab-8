@@ -1,0 +1,57 @@
+"""
+Python program to design classes for Blog, Post, and Author.
+Include methods to add a post by a specific author and display the latest post.
+"""
+
+from datetime import datetime
+
+class Author:
+    def __init__(self, author_id, name):
+        self.author_id = author_id
+        self.name = name
+
+    def __str__(self):
+        return f"Author {self.author_id} - {self.name}"
+
+class Post:
+    def __init__(self, post_id, title, content, author, timestamp=None):
+        self.post_id = post_id
+        self.title = title
+        self.content = content
+        self.author = author
+        self.timestamp = timestamp or datetime.now()
+
+    def __str__(self):
+        return f"Post {self.post_id} - {self.title} by {self.author} on {self.timestamp}"
+
+class Blog:
+    def __init__(self):
+        self.posts = []
+
+    def add_post(self, post):
+        self.posts.append(post)
+        print(f"Added a new post: {post}")
+
+    def display_latest_post(self):
+        if not self.posts:
+            print("No posts available.")
+        else:
+            latest_post = max(self.posts, key=lambda post: post.timestamp)
+            print(f"The latest post is: {latest_post}")
+
+# Example usage:
+if __name__ == "__main__":
+    author1 = Author(1, "John Doe")
+    author2 = Author(2, "Jane Smith")
+
+    blog = Blog()
+
+    post1 = Post(1, "Introduction to Python", "This is a post about Python basics.", author1)
+    post2 = Post(2, "Machine Learning Fundamentals", "Exploring the basics of machine learning.", author2)
+    post3 = Post(3, "Web Development with Flask", "Building web applications using Flask.", author1)
+
+    blog.add_post(post1)
+    blog.add_post(post2)
+    blog.add_post(post3)
+
+    blog.display_latest_post()
